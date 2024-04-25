@@ -17,6 +17,7 @@ const port = process.env.PORT;
 
 //routes
 app.use('/', userRouter)
+
 app.use('/api/auth', authRouter)
 
 
