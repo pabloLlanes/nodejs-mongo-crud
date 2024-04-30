@@ -54,7 +54,7 @@ const login = async (req, res) => {
             return res.status(401).json({ message: 'contraseña incorrecta' });
         }
 
-        const token = generateJwt({ id: user._id, email: user.email })
+        const token = generateJwt({ id: user._id, role: user.role })
 
         res.status(201).json({ message: 'logueo exitoso', user: user, token: token });
 
