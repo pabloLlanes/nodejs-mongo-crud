@@ -12,7 +12,8 @@ const { roleCheck } = require('../middlewares/validationRole');
 
 const userRouter = express.Router();
 
-userRouter.get('/api/users', validateToken, roleCheck('GOD'), getAllUsers);
+//userRouter.get('/api/users', validateToken, roleCheck('GOD'), getAllUsers);
+userRouter.get('/api/users', getAllUsers);
 
 userRouter.post('/api/users', validateToken, roleCheck('ADMIN'), createUser);
 

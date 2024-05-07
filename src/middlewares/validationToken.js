@@ -5,6 +5,8 @@ const validateToken = (req, res, next) => {
     try {
         const token = req.headers.authorization;
 
+        console.log(token)
+
         if (!token) {
             return res.status(401).json({ message: 'acceso denegado, token requerido' });
         }

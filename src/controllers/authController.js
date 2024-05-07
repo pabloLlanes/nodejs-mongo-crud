@@ -5,6 +5,7 @@ const { generateJwt } = require('../libs/jwt');
 const register = async (req, res) => {
 
     try {
+        console.log(req.body);
         const { name, email, password } = req.body;
 
         const salt = 10;
@@ -21,7 +22,7 @@ const register = async (req, res) => {
 
         newUser.password = undefined;
 
-        res.status(201).json({ message: 'Usuario registrado exitosamente', user: email });
+        res.status(201).json({ message: 'Usuario registrado exitosamente', user: newUser });
 
     } catch (error) {
         res.status(500).json({ message: 'Error al crear el usuario' });
@@ -40,18 +41,27 @@ const login = async (req, res) => {
             return res.status(404).json({ message: 'NO ENVIASTE EL EMAIL o PASSWORD, para el logueo es requerido' });
         }
 
+        if (email.length > 30) {
+            return res.status(404).json({ message: 'EMAIL INVALIDO' });
+        }
+        if (password.length > 30) {
+            return res.status(404).json({ message: 'EMAIL INVALIDO' });
+        }
+
         //const user = await User.findOne({ email: email})
         const user = await User.findOne({ email });
 
         if (!user) {
             console.log('usuario no encontrado');
-            return res.status(401).json({ message: 'usuario no encontrado' });
+            return res.status(404).json({ message: 'usuario no encontrado' });
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
 
         if (!isMatch) {
-            return res.status(401).json({ message: 'contraseña incorrecta' });
+            console.log('contraseña incorrecta');
+
+            return res.status(401).json({ message: 'usuario o contraseña incorrecta' });
         }
 
         const token = generateJwt({ id: user._id, role: user.role })

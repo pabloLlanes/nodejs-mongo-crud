@@ -6,6 +6,7 @@ const userSchema = new mongoose.Schema({
     password: { type: String },
     isActive: { type: Boolean, default: true },
     role: { type: String, default: 'USER' },
+    pets: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Pet' }]
 });
 
 const User = mongoose.model('User', userSchema);
