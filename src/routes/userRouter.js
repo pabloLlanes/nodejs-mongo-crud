@@ -17,7 +17,7 @@ userRouter.get('/api/users', getAllUsers);
 
 userRouter.post('/api/users', validateToken, roleCheck('ADMIN'), createUser);
 
-userRouter.get('/api/users/:id', validateToken, getUserById);
+userRouter.get('/api/users/:id', /* validateToken, */ getUserById);
 
 userRouter.patch('/api/users/:id', updateUser);
 
