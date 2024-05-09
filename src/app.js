@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const userRouter = require('./routes/userRouter');
 const connectDB = require('./config/db');
 const authRouter = require('./routes/authRouter');
+const petRouter = require('./routes/petRouter');
 
 dotenv.config();
 
@@ -18,6 +19,8 @@ app.use(express.json());
 app.use('/', userRouter)
 
 app.use('/api/auth', authRouter)
+
+app.use('/', petRouter)
 
 
 connectDB();

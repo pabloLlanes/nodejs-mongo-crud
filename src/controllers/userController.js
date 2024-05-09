@@ -19,17 +19,21 @@ async function getUserById(req, res) {
   try {
     const { id } = req.params;
 
-    const user = await User.findById(id);
+    const user = await User.findById(id).populate('pets');
+
+
+    console.log(user);
 
     if (!user) {
-      return res.status(404).json({ message: 'usuario no encontrado' });
+      return res.status(404).json({ message: 'Usuario no encontrado' });
     }
 
-    res.status(200).json({ message: 'usuario encontrado', usuario: user });
+    res.status(200).json({ message: 'Usuario encontrado', usuario: user });
   } catch (error) {
-    res.status(500).json({ message: 'error de servidor' });
+    res.status(500).json({ message: 'Error al recuperar el usuario', error: error.message });
   }
 }
+
 
 async function createUser(req, res) {
   try {
