@@ -4,9 +4,6 @@ function roleCheck(roleParam) {
 
         const user = req.user;
 
-        console.log('USER IN ROLE CHECK: ', user);
-        console.log('PARAMETRO ROLE: ', roleParam);
-
         if (user && user.role === roleParam) {
             next();
         } else {

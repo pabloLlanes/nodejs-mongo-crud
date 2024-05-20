@@ -10,7 +10,6 @@ async function assignOwnerToPet(req, res) {
 
         const pet = await Pet.findById(petId);
 
-
         if (!pet) {
             return res.status(404).json({ message: 'Mascota no encontrada' });
         }
