@@ -6,6 +6,7 @@ const connectDB = require('./config/db');
 var cors = require('cors')
 const authRouter = require('./routes/authRouter');
 const petRouter = require('./routes/petRouter');
+const { validationResult } = require('express-validator');
 
 dotenv.config();
 
@@ -30,6 +31,15 @@ app.use('/', userRouter)
 app.use('/api/auth', authRouter)
 
 app.use('/', petRouter)
+
+
+app.use((req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+    next();
+});
 
 
 connectDB();
